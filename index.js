@@ -31,7 +31,10 @@ let posts = [
     content: "Working on Data Visualization"
   }
 ];
-// 
+// setting routes
+app.get("/", (req, res) => {
+  res.redirect("/posts");
+});
 
 app.get("/posts", (req, res) => {
   res.render("index.ejs", { posts });
@@ -48,7 +51,7 @@ app.post("/posts", (req, res) => {
   //res.send("working it is !!");
 
 });
-app.patch("/posts/:id", (req, res) => {
+/* app.patch("/posts/:id", (req, res) => {
   let { id } = req.params;
   //console.log(id);
 
@@ -58,6 +61,15 @@ app.patch("/posts/:id", (req, res) => {
   res.redirect("/posts");
 
 
+}); */
+app.patch("/posts/:id", (req, res) => {
+  let { id } = req.params;
+  let post = posts.find((p) => id === p.id);
+  let newContent = req.body.content;
+
+  post.content = newContent;
+
+  res.redirect("/posts");
 });
 app.get("/posts/:id", (req, res) => {
   let { id } = req.params;
