@@ -31,7 +31,7 @@ let posts = [
     content: "Working on Data Visualization"
   }
 ];
-// setting routes
+//ROOT ROUTE
 app.get("/", (req, res) => {
   res.redirect("/posts");
 });
