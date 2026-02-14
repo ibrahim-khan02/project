@@ -1,7 +1,7 @@
 //Setting up path
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 8080;
+//const port = process.env.PORT || 8080;
 const path = require("path");
 const { v4: uuidv4 } = require('uuid');
 //accessing package for id
@@ -65,9 +65,10 @@ app.post("/posts", (req, res) => {
 app.patch("/posts/:id", (req, res) => {
   let { id } = req.params;
   let post = posts.find((p) => id === p.id);
-  let newContent = req.body.content;
 
-  post.content = newContent;
+  if (post) {
+    post.content = req.body.content;
+  }
 
   res.redirect("/posts");
 });
@@ -91,7 +92,8 @@ app.delete("/posts/:id",(req,res) =>
 res.redirect("/posts");
 });
 // checking server 
-app.listen(port, () => {
-  console.log(`Listening to port ${port}`);
-});
+const PORT = process.env.PORT || 8080;
 
+app.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
+});
